@@ -199,12 +199,6 @@ lib.composeManyExtensions [
         buildInputs = old.buildInputs or [ ] ++ [ pkgs.zlib ];
       });
 
-      aiohttp-swagger3 = prev.aiohttp-swagger3.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
       ansible = prev.ansible.overridePythonAttrs (
         old: {
           # Inputs copied from nixpkgs as ansible doesn't specify it's dependencies
@@ -252,18 +246,6 @@ lib.composeManyExtensions [
       argcomplete = prev.argcomplete.overridePythonAttrs (
         old: {
           buildInputs = old.buildInputs or [ ] ++ [ final.importlib-metadata ];
-        }
-      );
-
-      arpeggio = prev.arpeggio.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
-      astroid = prev.astroid.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -407,7 +389,6 @@ lib.composeManyExtensions [
 
       cairocffi = prev.cairocffi.overridePythonAttrs (
         old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
           # apply necessary patches in postInstall if the source is a wheel
           postInstall = lib.optionalString (old.src.isWheel or false) ''
             pushd "$out/${final.python.sitePackages}"
@@ -418,12 +399,6 @@ lib.composeManyExtensions [
           '';
         } // lib.optionalAttrs (!(old.src.isWheel or false)) {
           inherit (pkgs.python3.pkgs.cairocffi) patches;
-        }
-      );
-
-      cairosvg = prev.cairosvg.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -466,12 +441,6 @@ lib.composeManyExtensions [
             substituteInPlace pyproject.toml \
               --replace-warn 'setuptools~=67.3.2' 'setuptools'
           '';
-        }
-      );
-
-      cssselect2 = prev.cssselect2.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -673,15 +642,6 @@ lib.composeManyExtensions [
         nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkg-config ];
       });
 
-      daphne = prev.daphne.overridePythonAttrs (_old: {
-        postPatch = ''
-          # sometimes setup.py doesn't exist
-          if [ -f setup.py ]; then
-            substituteInPlace setup.py --replace-warn 'setup_requires=["pytest-runner"],' ""
-          fi
-        '';
-      });
-
       darts = prev.darts.override {
         preferWheel = true;
       };
@@ -762,7 +722,6 @@ lib.composeManyExtensions [
 
       dictdiffer = prev.dictdiffer.overridePythonAttrs (
         old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
           propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ final.setuptools ];
         }
       );
@@ -770,7 +729,7 @@ lib.composeManyExtensions [
       django = prev.django.overridePythonAttrs (
         old: {
           propagatedNativeBuildInputs = old.propagatedNativeBuildInputs or [ ]
-            ++ [ pkgs.gettext final.pytest-runner ];
+            ++ [ pkgs.gettext ];
         }
       );
 
@@ -781,30 +740,6 @@ lib.composeManyExtensions [
               touch LICENSE
             fi
           '' + (old.configurePhase or "");
-        }
-      );
-
-      django-cors-headers = prev.django-cors-headers.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
-      django-hijack = prev.django-hijack.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
-      django-prometheus = prev.django-prometheus.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
-      django-rosetta = prev.django-rosetta.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -878,7 +813,6 @@ lib.composeManyExtensions [
 
       faker = prev.faker.overridePythonAttrs (
         old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
           doCheck = false;
         }
       );
@@ -903,12 +837,6 @@ lib.composeManyExtensions [
       fastecdsa = prev.fastecdsa.overridePythonAttrs (old: {
         buildInputs = old.buildInputs or [ ] ++ [ pkgs.gmp.dev ];
       });
-
-      fastparquet = prev.fastparquet.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
 
       file-magic = prev.file-magic.overridePythonAttrs (_: {
         postPatch = ''
@@ -969,7 +897,6 @@ lib.composeManyExtensions [
 
       grandalf = prev.grandalf.overridePythonAttrs (
         old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
           doCheck = false;
         }
       );
@@ -1607,7 +1534,6 @@ lib.composeManyExtensions [
 
       mccabe = prev.mccabe.overridePythonAttrs (
         old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
           doCheck = false;
         }
       );
@@ -1681,12 +1607,6 @@ lib.composeManyExtensions [
           preBuild = ''
             ln -sf ${cfg} mpi.cfg
           '';
-        }
-      );
-
-      multiaddr = prev.multiaddr.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -2098,12 +2018,6 @@ lib.composeManyExtensions [
         doCheck = false; # requires networking
       });
 
-      parsel = prev.parsel.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
       pdal = prev.pdal.overridePythonAttrs (
         _old: {
           PDAL_CONFIG = "${pkgs.pdal}/bin/pdal-config";
@@ -2138,7 +2052,7 @@ lib.composeManyExtensions [
         in
         {
           nativeBuildInputs = old.nativeBuildInputs or [ ]
-            ++ [ pkg-config final.pytest-runner ];
+            ++ [ pkg-config ];
           buildInputs = with pkgs; old.buildInputs or [ ]
             ++ [ freetype libjpeg zlib libtiff libxcrypt libwebp tcl lcms2 ]
             ++ lib.optionals (lib.versionAtLeast old.version "7.1.0") [ xorg.libxcb ]
@@ -2195,12 +2109,6 @@ lib.composeManyExtensions [
           "--no-deps"
         ];
       });
-
-      polling2 = prev.polling2.overridePythonAttrs (
-        old: {
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
 
       portend = prev.portend.overridePythonAttrs (
         old: {
@@ -2423,12 +2331,6 @@ lib.composeManyExtensions [
       pymdown-extensions = prev.pymdown-extensions.overridePythonAttrs (old: {
         propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ final.pyyaml ];
       });
-
-      pylint = prev.pylint.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
 
       pymediainfo = prev.pymediainfo.overridePythonAttrs (
         old: {
@@ -2884,14 +2786,6 @@ lib.composeManyExtensions [
         }
       );
 
-      pytest-runner = prev.pytest-runner or prev.pytestrunner;
-
-      pytest-pylint = prev.pytest-pylint.overridePythonAttrs (
-        _old: {
-          buildInputs = [ final.pytest-runner ];
-        }
-      );
-
       # pytest-splinter seems to put a .marker file in an empty directory
       # presumably so it's tracked by and can be installed with MANIFEST.in, see
       # https://github.com/pytest-dev/pytest-splinter/commit/a48eeef662f66ff9d3772af618748e73211a186b
@@ -2912,12 +2806,6 @@ lib.composeManyExtensions [
           rm $out/${prev.python.sitePackages}/pytest_splinter/profiles/firefox/.marker
         '';
       });
-
-      python-jose = prev.python-jose.overridePythonAttrs (
-        _old: {
-          buildInputs = [ final.pytest-runner ];
-        }
-      );
 
       python-magic = prev.python-magic.overridePythonAttrs (old:
         let
@@ -2957,20 +2845,6 @@ lib.composeManyExtensions [
       python-snappy = prev.python-snappy.overridePythonAttrs (
         old: {
           buildInputs = old.buildInputs or [ ] ++ [ pkgs.snappy ];
-        }
-      );
-
-      python-twitter = prev.python-twitter.overridePythonAttrs (old: {
-        buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-      });
-
-      pythran = prev.pythran.overridePythonAttrs (old: {
-        buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-      });
-
-      ffmpeg-python = prev.ffmpeg-python.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -3102,12 +2976,6 @@ lib.composeManyExtensions [
           sed -i 's|"/usr/include/freetype2"|"${pkgs.lib.getDev pkgs.freetype}"|' setup.py
         '';
         buildInputs = old.buildInputs or [ ] ++ [ pkgs.freetype ];
-      });
-
-      rfc3986-validator = prev.rfc3986-validator.overridePythonAttrs (old: {
-        nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
-          final.pytest-runner
-        ];
       });
 
       rlp = prev.rlp.overridePythonAttrs {
@@ -3533,13 +3401,11 @@ lib.composeManyExtensions [
           automake
           libtool
         ];
-        buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         doCheck = false;
         # Local setuptools versions like "x.y.post0" confuse an internal check
         postPatch = ''
           substituteInPlace setup.py \
-            --replace-warn 'setuptools_version.' '"${final.setuptools.version}".' \
-            --replace-warn 'pytest-runner==' 'pytest-runner>='
+            --replace-warn 'setuptools_version.' '"${final.setuptools.version}".'
         '';
       });
 
@@ -3714,12 +3580,6 @@ lib.composeManyExtensions [
         '';
       });
 
-      tinycss2 = prev.tinycss2.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
       # The tokenizers build requires a complex rust setup (cf. nixpkgs override)
       #
       # Instead of providing a full source build, we use a wheel to keep
@@ -3759,12 +3619,6 @@ lib.composeManyExtensions [
           final.setuptools
         ];
         pipInstallFlags = [ "--no-deps" ];
-      });
-
-      typed_ast = prev.typed-ast.overridePythonAttrs (old: {
-        nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
-          final.pytest-runner
-        ];
       });
 
       urwidtrees = prev.urwidtrees.overridePythonAttrs (
@@ -3879,8 +3733,6 @@ lib.composeManyExtensions [
       weasyprint = prev.weasyprint.overridePythonAttrs (
         old: {
           inherit (pkgs.python3.pkgs.weasyprint) patches;
-          nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ final.pytest-runner ];
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
         }
       );
 
@@ -4057,12 +3909,6 @@ lib.composeManyExtensions [
           '';
         });
 
-      marisa-trie = prev.marisa-trie.overridePythonAttrs (
-        old: {
-          buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ];
-        }
-      );
-
       ua-parser = prev.ua-parser.overridePythonAttrs (
         old: {
           propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ final.pyyaml ];
@@ -4184,8 +4030,6 @@ lib.composeManyExtensions [
             }
         );
 
-      flake8-mutable = prev.flake8-mutable.overridePythonAttrs
-        (old: { buildInputs = old.buildInputs or [ ] ++ [ final.pytest-runner ]; });
       pydantic = prev.pydantic.overridePythonAttrs
         (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.libxcrypt ]; });
 
