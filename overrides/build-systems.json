@@ -7259,7 +7259,6 @@
     "setuptools"
   ],
   "flask-minio": [
-    "pytest-runner",
     "setuptools"
   ],
   "flask-mongoengine": [
@@ -15679,7 +15678,6 @@
     "setuptools"
   ],
   "pip-licenses": [
-    "pytest-runner",
     "setuptools"
   ],
   "pip-requirements-parser": [
@@ -15861,7 +15859,6 @@
     "setuptools"
   ],
   "plux": [
-    "pytest-runner",
     "setuptools"
   ],
   "ply": [
@@ -16539,7 +16536,6 @@
     "setuptools"
   ],
   "py-multihash": [
-    "pytest-runner",
     "setuptools"
   ],
   "py-natpmp": [
@@ -19392,10 +19388,6 @@
   "pytest-reverse": [
     "setuptools"
   ],
-  "pytest-runner": [
-    "setuptools",
-    "setuptools-scm"
-  ],
   "pytest-select": [
     "poetry"
   ],
@@ -21196,7 +21188,6 @@
     "setuptools"
   ],
   "rfc3986-validator": [
-    "pytest-runner",
     "setuptools"
   ],
   "rfc3987": [
@@ -21673,7 +21664,6 @@
     "setuptools"
   ],
   "sat-search": [
-    "pytest-runner",
     "setuptools"
   ],
   "sat-stac": [
@@ -23627,7 +23617,6 @@
     "setuptools"
   ],
   "tacacs-plus": [
-    "pytest-runner",
     "setuptools"
   ],
   "tadasets": [
